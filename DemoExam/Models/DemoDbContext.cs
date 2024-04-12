@@ -34,5 +34,8 @@ namespace DemoExam.Models
 
         // Свойство, представляющее собой коллекцию сущностей типа Sotrudnik, для работы с данными сотрудников
         public DbSet<Gender> Genders { get; set; }
+        public DbSet<Employer> Employers { get; set; }
+        public DbSet<Job> Jobs { get; set; }
+        public DbSet<City> Citys { get; set; }
     }
 }
