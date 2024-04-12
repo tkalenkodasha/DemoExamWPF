@@ -27,7 +27,7 @@ namespace DemoExam.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Строка подключения к базе данных MySQL
-            var connectionString = "host=localhost; user id=tklnk; password=123456; database=demodb;";
+            var connectionString = "host=localhost; port=3360; user id=tklnk; password=123456; database=demodb;";
             // Настройка контекста на использование MySQL с указанной версией сервера
             optionsBuilder.UseMySql(connectionString, MySqlServerVersion.LatestSupportedServerVersion);
         }
