@@ -4,6 +4,14 @@
              xmlns:local="clr-namespace:DemoExam"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Background" Value="Pink"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontFamily" Value="Courier New"/>
+            <Setter Property="FontSize" Value="14"/>
+
+        </Style>
     </Application.Resources>
 </Application>
