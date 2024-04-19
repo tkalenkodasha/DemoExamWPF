@@ -12,7 +12,7 @@
     </Page.Resources>
     <DockPanel LastChildFill="True">
 
-        <Grid ShowGridLines="True" Background="Pink">
+        <Grid  Background="Pink">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="2*"/>
@@ -20,25 +20,23 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
-                
+
             </Grid.RowDefinitions>
             <StackPanel Grid.Column="1" VerticalAlignment="Center">
                 <Label>authorize, pls</Label>
                 <Label Width="298" Height="34" >login</Label>
                 <TextBox Name="LoginTextBox" />
                 <Label Content="password" Width="304" Height="37"/>
-                <PasswordBox Name="PasswordTextBox" Height="27" Width="300" />
+                <PasswordBox Name="PasswordBox" Height="27" Width="300" />
 
                 <Label Grid.Column="0">select your role</Label>
                 <ComboBox Name="RoleComboBox" Width="100" VerticalAlignment="Center" DisplayMemberPath="RoleName"/>
                 <StackPanel   Orientation="Horizontal" HorizontalAlignment="Center">
-               
-                <Button >log in</Button>
-                <Button Grid.Row="1">cancel</Button>
+                    <Button Click="CheckAuthoButton" >log in</Button>
+                    <Button Grid.Row="1" Click="Button_Click">login as guest</Button>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
         </Grid>
 
     </DockPanel>
-
 </Page>

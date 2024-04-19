@@ -37,5 +37,7 @@ namespace DemoExam.Models
         public DbSet<Employer> Employers { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<City> Citys { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
     }
 }

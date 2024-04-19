@@ -22,5 +22,27 @@ namespace DemoExam
             InitializeComponent();
             FrameMain.Navigate(new Autho());
         }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            FrameMain.GoBack();
+        }
+
+        private void FrameMain_ContentRendered(object sender, EventArgs e)
+        {
+            if (FrameMain.CanGoBack)
+            {
+                ButtonBack.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ButtonBack.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void ButtonExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

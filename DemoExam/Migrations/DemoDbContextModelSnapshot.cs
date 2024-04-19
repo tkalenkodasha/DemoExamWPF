@@ -109,6 +109,45 @@ namespace DemoExam.Migrations
                     b.ToTable("Jobs");
                 });
 
+            modelBuilder.Entity("DemoExam.Models.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("DemoExam.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("DemoExam.Models.Employer", b =>
                 {
                     b.HasOne("DemoExam.Models.City", "City")
@@ -136,6 +175,17 @@ namespace DemoExam.Migrations
                     b.Navigation("Job");
                 });
 
+            modelBuilder.Entity("DemoExam.Models.User", b =>
+                {
+                    b.HasOne("DemoExam.Models.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("DemoExam.Models.City", b =>
                 {
                     b.Navigation("Employers");
@@ -149,6 +199,11 @@ namespace DemoExam.Migrations
             modelBuilder.Entity("DemoExam.Models.Job", b =>
                 {
                     b.Navigation("Employers");
+                });
+
+            modelBuilder.Entity("DemoExam.Models.Role", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

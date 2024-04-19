@@ -12,10 +12,13 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="Aqua">
-            <Button Content="Exit" HorizontalAlignment="Right"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="ButtonBack" Content="Back" HorizontalAlignment="Right" Click="ButtonBack_Click"/>
+                <Button x:Name="ButtonExit" Content="Exit" HorizontalAlignment="Right" Click="ButtonExit_Click"/>
+            </StackPanel>
             <Image Width="45" Height="45" Margin="5" HorizontalAlignment="Left" 
-               Source="C:\Users\krasa\Desktop\УЧЕБА\ГАЙД ДЛЯ ДЕМ_ЭКЗАМЕНА\ГАЙД СДАЧИ ДЭ БОЖЕ СПАСИ И СОХРАНИ\картиночки\logo.png"/>
+                           Source="C:\Users\krasa\Desktop\УЧЕБА\ГАЙД ДЛЯ ДЕМ_ЭКЗАМЕНА\ГАЙД СДАЧИ ДЭ БОЖЕ СПАСИ И СОХРАНИ\картиночки\logo.png"/>
         </Grid>
-        <Frame x:Name="FrameMain" Grid.Row="1" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="FrameMain" Grid.Row="1" NavigationUIVisibility="Hidden" ContentRendered="FrameMain_ContentRendered"/>
     </Grid>
 </Window>

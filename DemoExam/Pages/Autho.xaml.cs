@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DemoExam.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,8 +24,59 @@ namespace DemoExam.Pages
         public Autho()
         {
             InitializeComponent();
+            var context = DemoDbContext.GetContext();
+            RoleComboBox.ItemsSource = context.Roles.ToList();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Client());//переход на страницу клиента для неавторизованного гостя
         }
 
        
+        //метод для перехода на соответствующую страницу для разных пользователей
+        private void LoadForm(string _role)
+        {
+            switch (_role)
+            {
+                case "client":
+                    NavigationService.Navigate(new Client());// если роль пользователья клиент то переходим на страницу клиента
+                    break;
+            }
+        }
+        // Метод для проверки авторизации пользователя
+        private void CheckAuthoButton(object sender, RoutedEventArgs e)
+        {
+            // Получение контекста базы данных
+            var context = DemoDbContext.GetContext();
+
+            // Проверка, выбран ли элемент в комбобоксе ролей
+            if (RoleComboBox.SelectedItem != null)
+            {
+                // Получение выбранной роли из комбобокса
+                Role selectedRole = (Role)RoleComboBox.SelectedItem;
+
+                // Поиск пользователя в базе данных по логину, паролю и роли
+                var user = context.Users.FirstOrDefault(u =>
+                    u.Password == PasswordBox.Password && u.Login == LoginTextBox.Text && u.Role == selectedRole);
+
+                // Если пользователь не найден, выводится сообщение об ошибке
+                if (user == null)
+                {
+                    MessageBox.Show("attention!! pls, input your correct login and password");
+                }
+                else
+                {
+                    // Если пользователь найден, выводится сообщение с его ролью и загружается форма
+                    MessageBox.Show("ur login as:" + user.Role.RoleName.ToString());
+                    LoadForm(user.Role.RoleName);
+                }
+            }
+            else
+            {
+                // Если не выбрана роль, выводится сообщение об ошибке
+                MessageBox.Show("error!! fill in all the personal data");
+            }
+        }
     }
-}
+    } 
