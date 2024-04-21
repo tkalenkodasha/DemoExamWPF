@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DemoExam.Models
 {
-    internal class DemoDbContext :DbContext
+    public class DemoDbContext :DbContext
     {
         // Объявление статического поля для хранения экземпляра контекста базы данных
         public static DemoDbContext _defaultContext;
@@ -31,13 +31,29 @@ namespace DemoExam.Models
             // Настройка контекста на использование MySQL с указанной версией сервера
             optionsBuilder.UseMySql(connectionString, MySqlServerVersion.LatestSupportedServerVersion);
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<OrderProduct>()
+                .HasKey(op => new { op.OrderId, op.ProductId });
 
+            
+            base.OnModelCreating(modelBuilder);
+        }
         // Свойство, представляющее собой коллекцию сущностей типа Sotrudnik, для работы с данными сотрудников
+
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<User> Users { get; set; }
+        
+
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Employer> Employers { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<City> Citys { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderProduct> OrdersProducts { get; set; }
+        public DbSet<Product> Products { get; set; }    
+        public DbSet<Client> Clients { get; set; }
     }
 }

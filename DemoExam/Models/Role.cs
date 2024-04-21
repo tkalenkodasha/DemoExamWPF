@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DemoExam.Models
 {
-    class Role
+    public class Role
     {
         // Уникальный идентификатор роли.
         public int Id { get; set; }

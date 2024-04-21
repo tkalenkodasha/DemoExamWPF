@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DemoExam.Models
 {
-    class User
+    public class User
     {
         // Уникальный идентификатор пользователя.
         public int Id { get; set; }
