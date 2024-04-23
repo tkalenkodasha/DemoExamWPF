@@ -10,6 +10,7 @@ namespace DemoExam.Models
     {
         public int OrderId { get; set; }
         public int ProductId { get; set; }
+        public int Count { get; set; }
         
         // Навигационные свойства
         public virtual Order Order { get; set; }

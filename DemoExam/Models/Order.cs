@@ -12,6 +12,7 @@ namespace DemoExam.Models
         public int Id { get; set; }
         public string Status { get; set; }
         public DateTime DateOrder { get; set; }
+        public DateTime DateDelivery { get; set; }
         public int ClientId { get; set; }
         
         public virtual Client Client { get; set; }
