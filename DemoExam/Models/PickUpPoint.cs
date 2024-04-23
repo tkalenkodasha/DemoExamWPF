@@ -9,7 +9,12 @@ namespace DemoExam.Models
     public class PickUpPoint
     {
         public int Id { get; set; }
-        public string Adress { get; set; }
+        public string NumberHouse { get; set; }
+        public string Street { get; set; }
+        public int CityId { get; set; }
+        public virtual City City{ get; set; }
+
+        public string Index { get; set; }
         public virtual List<Order> Orders { get; set; }
         public PickUpPoint() 
         { 
