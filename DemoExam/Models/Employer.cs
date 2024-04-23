@@ -31,5 +31,8 @@ namespace DemoExam.Models
         // но один город может быть местом проживания многих сотрудников
         public int CityID { get; set; }
         public virtual City City { get; set; }
+        public int UserID { get; set; }
+        public virtual User User { get; set; }
+
     }
 }

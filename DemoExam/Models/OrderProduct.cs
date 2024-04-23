@@ -14,5 +14,6 @@ namespace DemoExam.Models
         // Навигационные свойства
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
+
     }
 }

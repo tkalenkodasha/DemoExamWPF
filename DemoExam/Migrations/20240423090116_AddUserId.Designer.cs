@@ -3,6 +3,7 @@ using System;
 using DemoExam.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DemoExam.Migrations
 {
     [DbContext(typeof(DemoDbContext))]
-    partial class DemoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240423090116_AddUserId")]
+    partial class AddUserId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,9 +191,6 @@ namespace DemoExam.Migrations
                     b.Property<int>("GettingCode")
                         .HasColumnType("int");
 
-                    b.Property<int>("PickUpPointId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -199,8 +198,6 @@ namespace DemoExam.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
-
-                    b.HasIndex("PickUpPointId");
 
                     b.ToTable("Orders");
                 });
@@ -218,21 +215,6 @@ namespace DemoExam.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrdersProducts");
-                });
-
-            modelBuilder.Entity("DemoExam.Models.PickUpPoint", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Adress")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PickUpPoints");
                 });
 
             modelBuilder.Entity("DemoExam.Models.Product", b =>
@@ -318,7 +300,7 @@ namespace DemoExam.Migrations
                         .IsRequired();
 
                     b.HasOne("DemoExam.Models.Gender", "Gender")
-                        .WithMany("Clients")
+                        .WithMany()
                         .HasForeignKey("GenderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -379,21 +361,13 @@ namespace DemoExam.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DemoExam.Models.PickUpPoint", "PickUpPoint")
-                        .WithMany("Orders")
-                        .HasForeignKey("PickUpPointId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Client");
-
-                    b.Navigation("PickUpPoint");
                 });
 
             modelBuilder.Entity("DemoExam.Models.OrderProduct", b =>
                 {
                     b.HasOne("DemoExam.Models.Order", "Order")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -443,24 +417,12 @@ namespace DemoExam.Migrations
 
             modelBuilder.Entity("DemoExam.Models.Gender", b =>
                 {
-                    b.Navigation("Clients");
-
                     b.Navigation("Employers");
                 });
 
             modelBuilder.Entity("DemoExam.Models.Job", b =>
                 {
                     b.Navigation("Employers");
-                });
-
-            modelBuilder.Entity("DemoExam.Models.Order", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("DemoExam.Models.PickUpPoint", b =>
-                {
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("DemoExam.Models.Role", b =>

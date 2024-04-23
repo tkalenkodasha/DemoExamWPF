@@ -17,10 +17,12 @@ namespace DemoExam.Models
         // Отношение многие-ко-многим: один пол может быть у многих сотрудников,
         // и один сотрудник может иметь только один пол
         public virtual List<Employer> Employers { get; set; }
+        public virtual List<Client> Clients { get; set; }
         public Gender()
         {
             // Инициализация списка сотрудников
             Employers = new List<Employer>();
+            Clients = new List<Client>();
         }
         // Возвращает название пола
         public override string ToString()

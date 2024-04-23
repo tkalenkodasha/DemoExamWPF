@@ -55,5 +55,7 @@ namespace DemoExam.Models
         public DbSet<OrderProduct> OrdersProducts { get; set; }
         public DbSet<Product> Products { get; set; }    
         public DbSet<Client> Clients { get; set; }
+        public DbSet<PickUpPoint> PickUpPoints { get; set; }
+
     }
 }
