@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DemoExam.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,10 @@ namespace DemoExam.Pages
         public Client()
         {
             InitializeComponent();
+            var product=DemoDbContext.GetContext().Products.Include(p => p.Category).ToList();   
+            LViewProduct.ItemsSource = product;
         }
+
+      
     }
 }

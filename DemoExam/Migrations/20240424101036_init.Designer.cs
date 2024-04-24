@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DemoExam.Migrations
 {
     [DbContext(typeof(DemoDbContext))]
-    [Migration("20240423090116_AddUserId")]
-    partial class AddUserId
+    [Migration("20240424101036_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -111,9 +111,6 @@ namespace DemoExam.Migrations
                     b.Property<int>("GenderId")
                         .HasColumnType("int");
 
-                    b.Property<int>("JobId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Lastname")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -139,8 +136,6 @@ namespace DemoExam.Migrations
 
                     b.HasIndex("GenderId");
 
-                    b.HasIndex("JobId");
-
                     b.HasIndex("UserID");
 
                     b.ToTable("Employers");
@@ -161,21 +156,6 @@ namespace DemoExam.Migrations
                     b.ToTable("Genders");
                 });
 
-            modelBuilder.Entity("DemoExam.Models.Job", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("JobName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Jobs");
-                });
-
             modelBuilder.Entity("DemoExam.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -185,10 +165,16 @@ namespace DemoExam.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DateDelivery")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<DateTime>("DateOrder")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("GettingCode")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PickUpPointId")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -198,6 +184,8 @@ namespace DemoExam.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
+
+                    b.HasIndex("PickUpPointId");
 
                     b.ToTable("Orders");
                 });
@@ -210,11 +198,42 @@ namespace DemoExam.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
                     b.HasKey("OrderId", "ProductId");
 
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrdersProducts");
+                });
+
+            modelBuilder.Entity("DemoExam.Models.PickUpPoint", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Index")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("NumberHouse")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.ToTable("PickUpPoints");
                 });
 
             modelBuilder.Entity("DemoExam.Models.Product", b =>
@@ -224,11 +243,7 @@ namespace DemoExam.Migrations
                         .HasMaxLength(6)
                         .HasColumnType("int");
 
-                    b.Property<string>("CategoryId")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("CategoryId1")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<int>("Cost")
@@ -241,13 +256,17 @@ namespace DemoExam.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("ImageName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId1");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -300,7 +319,7 @@ namespace DemoExam.Migrations
                         .IsRequired();
 
                     b.HasOne("DemoExam.Models.Gender", "Gender")
-                        .WithMany()
+                        .WithMany("Clients")
                         .HasForeignKey("GenderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -332,12 +351,6 @@ namespace DemoExam.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DemoExam.Models.Job", "Job")
-                        .WithMany("Employers")
-                        .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DemoExam.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserID")
@@ -347,8 +360,6 @@ namespace DemoExam.Migrations
                     b.Navigation("City");
 
                     b.Navigation("Gender");
-
-                    b.Navigation("Job");
 
                     b.Navigation("User");
                 });
@@ -361,13 +372,21 @@ namespace DemoExam.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DemoExam.Models.PickUpPoint", "PickUpPoint")
+                        .WithMany("Orders")
+                        .HasForeignKey("PickUpPointId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Client");
+
+                    b.Navigation("PickUpPoint");
                 });
 
             modelBuilder.Entity("DemoExam.Models.OrderProduct", b =>
                 {
                     b.HasOne("DemoExam.Models.Order", "Order")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -383,11 +402,22 @@ namespace DemoExam.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("DemoExam.Models.PickUpPoint", b =>
+                {
+                    b.HasOne("DemoExam.Models.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
+                });
+
             modelBuilder.Entity("DemoExam.Models.Product", b =>
                 {
                     b.HasOne("DemoExam.Models.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId1")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -417,12 +447,19 @@ namespace DemoExam.Migrations
 
             modelBuilder.Entity("DemoExam.Models.Gender", b =>
                 {
+                    b.Navigation("Clients");
+
                     b.Navigation("Employers");
                 });
 
-            modelBuilder.Entity("DemoExam.Models.Job", b =>
+            modelBuilder.Entity("DemoExam.Models.Order", b =>
                 {
-                    b.Navigation("Employers");
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("DemoExam.Models.PickUpPoint", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("DemoExam.Models.Role", b =>

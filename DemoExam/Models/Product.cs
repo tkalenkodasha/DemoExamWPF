@@ -16,12 +16,21 @@ namespace DemoExam.Models
         public string Description { get; set; }
         // Отношение один-ко-многим: один товар может иметь только одну категорию,
         // но одна категория  может быть у многих товаров
-        public string CategoryId { get; set; }
+        public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
         public int Cost { get; set; }
         public int Count { get; set; }
         //поле для названия фотографии
         public string ImageName { get; set; }
+
+        public string ImagePath
+        {
+            get
+            {
+                var path = "pack://application:,,,/Resources/" + this.ImageName;
+                return path;
+            }
+        }
 
     }
 }
