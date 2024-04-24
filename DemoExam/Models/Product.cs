@@ -20,6 +20,8 @@ namespace DemoExam.Models
         public virtual Category Category { get; set; }
         public int Cost { get; set; }
         public int Count { get; set; }
+        //поле для названия фотографии
+        public string ImageName { get; set; }
 
     }
 }

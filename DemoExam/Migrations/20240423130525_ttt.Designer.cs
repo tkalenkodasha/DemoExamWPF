@@ -3,6 +3,7 @@ using System;
 using DemoExam.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DemoExam.Migrations
 {
     [DbContext(typeof(DemoDbContext))]
-    partial class DemoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240423130525_ttt")]
+    partial class ttt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -255,10 +257,6 @@ namespace DemoExam.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ImageName")
                         .IsRequired()
                         .HasColumnType("longtext");
 
