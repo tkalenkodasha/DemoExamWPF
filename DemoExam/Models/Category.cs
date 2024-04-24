@@ -15,5 +15,9 @@ namespace DemoExam.Models
         {
             Products = new List<Product>();
         }
+        public override string ToString()
+        {
+            return CategoryName;
+        }
     }
 }
