@@ -29,10 +29,22 @@
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
+
+
+
+
         <TextBox x:Name="txtSearch" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="5,0,5,0"/>
-        <ComboBox x:Name="SortingComboBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,5,0" ItemsSource="{Binding SortingList}" SelectionChanged="cmbSorting_SelectionChanged"/>
-        <ComboBox x:Name="FilterComboBox" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Margin="5,0,5,0" SelectedIndex="0" ItemsSource="{Binding Category.CategoryName}"  SelectionChanged="cmdFilter_SelectionChanged"/>
+        <ComboBox x:Name="SortingComboBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="5,0,5,0" SelectedIndex="0" ItemsSource="{Binding SortingList}" SelectionChanged="cmbSorting_SelectionChanged"/>
+        <ComboBox x:Name="FilterComboBox" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Margin="5,0,5,0" SelectedIndex="-1" ItemsSource="{Binding Category.CategoryName}"  SelectionChanged="cmdFilter_SelectionChanged"/>
+        <Button x:Name="ResetButton" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Margin="5,0,5,0" HorizontalAlignment="Left" Width="70" Content="сброс" Click="ResetButton_Click"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="3"  VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock x:Name="txtResultAmount"/>
+            <TextBlock Text="из"/>
+            <TextBlock x:Name="txtAllAmount"/>
+        </StackPanel>
+
         <ListView  x:Name="LViewProduct" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="2" Margin="5,5,5,5" SelectedIndex="0" d:ItemsSource="{d:SampleData ItemCount=1}" >
+
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -60,7 +72,13 @@
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.ContextMenu>
+                <ContextMenu Name="ContextMenu">
+                    <MenuItem Name="ButtonAddProduct" Header="Добавить к заказу" Click="ButtonAddProduct_Click"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
         </ListView>
-
+        <Button x:Name="ButtonOrder" Grid.Row="3" Grid.Column="0" Content="заказ"   Visibility="Visible" HorizontalAlignment="Left"
+ Width="200" Margin="20 0 0 0"  Click="ButtonOrder_Click"></Button>
     </Grid>
 </Page>
