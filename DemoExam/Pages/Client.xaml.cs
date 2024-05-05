@@ -25,7 +25,7 @@ namespace DemoExam.Pages
     public partial class Client : Page
     {   
         User user=new User();   //создаем пустой объект пользователя
-        public Client()
+        public Client(User currentUser)
         {
             // Инициализируем компоненты пользовательского интерфейса
             InitializeComponent();
@@ -51,14 +51,14 @@ namespace DemoExam.Pages
             // Отображаем общее количество продуктов в текстовом поле
             txtAllAmount.Text = product.Count().ToString();
 
-            
+            user=currentUser;
 
             // Вызываем метод фильтрации
             Filtration();
 
             
         }
-
+         
        
 
 
@@ -129,7 +129,7 @@ namespace DemoExam.Pages
 
         private void ButtonOrder_Click(object sender, RoutedEventArgs e)
         {
-            OrderWindow order = new OrderWindow(orderProducts);
+            OrderWindow order = new OrderWindow(orderProducts, user);
             order.ShowDialog();
 
 

@@ -30,17 +30,20 @@ namespace DemoExam.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Client());//переход на страницу клиента для неавторизованного гостя
+            NavigationService.Navigate(new Client(null));//переход на страницу клиента для неавторизованного гостя
         }
 
        
         //метод для перехода на соответствующую страницу для разных пользователей
-        private void LoadForm(string _role)
+        private void LoadForm(string _role, User user)
         {
             switch (_role)
             {
-                case "client":
-                    NavigationService.Navigate(new Client());// если роль пользователья клиент то переходим на страницу клиента
+                case "Клиент":
+                    NavigationService.Navigate(new Client(user));// если роль пользователья клиент то переходим на страницу клиента
+                    break;
+                case "Менеджер":
+                    NavigationService.Navigate(new Client(user));
                     break;
             }
         }
@@ -69,7 +72,7 @@ namespace DemoExam.Pages
                 {
                     // Если пользователь найден, выводится сообщение с его ролью и загружается форма
                     MessageBox.Show("ur login as:" + user.Role.RoleName.ToString());
-                    LoadForm(user.Role.RoleName);
+                    LoadForm(user.Role.RoleName, user);
                 }
             }
             else

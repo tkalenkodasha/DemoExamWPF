@@ -22,27 +22,28 @@ namespace DemoExam.Pages
     /// </summary>
     public partial class OrderPage : Page
     {
-        List<Product> productList=new List<Product>();//создаем пустой лист к которому можно будет обращаться во всех методах
-        public OrderPage(List<Product> products)
+        List<Product> productList = new List<Product>();//создаем пустой лист к которому можно будет обращаться во всех методах
+        public OrderPage(List<Product> products, User user)
         {
             InitializeComponent();
 
-            DataContext=this;//привязываем контекст данных к коду
-            productList=products;//передаем список с товарами в пустой лист
+            DataContext = this;//привязываем контекст данных к коду
+            productList = products;//передаем список с товарами в пустой лист
             LViewOrder.ItemsSource = productList;//выодим список выбранных товаров в макет
             var pickUpPoints = DemoDbContext.GetContext().PickUpPoints
                 .Include(p => p.City) // Убедитесь, что вы включаете связанные данные о городе
                 .ToList();
             PickUpPointComboBox.ItemsSource = pickUpPoints;//выводим в комбобокс список пунктов выдачи
-
-
-
+            if (user != null)
+            {
+                txtUser.Text = user.Id.ToString();
+            }
         }
 
         private void DuttonDeleteProduct_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Вы уверены, что хотите удалить этот элемент?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) 
-            { 
+            if (MessageBox.Show("Вы уверены, что хотите удалить этот элемент?", "Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
                 productList.Remove(LViewOrder.SelectedItem as Product);
             }
         }
@@ -51,15 +52,14 @@ namespace DemoExam.Pages
         {
             get
             {
-                var Total=productList.Sum(p=>Convert.ToDouble(p.Cost));
-                return Total.ToString();    
+                var Total = productList.Sum(p => Convert.ToDouble(p.Cost));
+                return Total.ToString();
             }
         }
 
         private void ButtonOrderSave_Click(object sender, RoutedEventArgs e)
         {
-            
-
+           
         }
     }
 }
