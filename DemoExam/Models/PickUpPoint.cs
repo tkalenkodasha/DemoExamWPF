@@ -20,5 +20,13 @@ namespace DemoExam.Models
         { 
             Orders=new List<Order>();
         }
+
+        public string FullAddress
+        {
+            get
+            {
+                return $"{City.CityName}, {Street},{NumberHouse}";
+            }
+        }
     }
 }
