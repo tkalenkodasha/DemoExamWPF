@@ -45,6 +45,9 @@ namespace DemoExam.Pages
                 case "Менеджер":
                     NavigationService.Navigate(new Client(user));
                     break;
+                case "Администратор":
+                    NavigationService.Navigate(new Admin(user));
+                    break;
             }
         }
         // Метод для проверки авторизации пользователя

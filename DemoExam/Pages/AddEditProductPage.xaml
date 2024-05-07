@@ -1,0 +1,53 @@
+﻿<Page x:Class="DemoExam.Pages.AddEditProductPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DemoExam.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddEditProductPage">
+    <ScrollViewer>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="Артикул"/>
+                <TextBox Name="txtArticle" Text="{Binding Id}"/>
+
+                <TextBlock Text="Наименование"/>
+                <TextBox Name="txttitle" Text="{Binding Name}"/>
+
+                <TextBlock Text="категория"/>
+                <ComboBox Name="cmbCategory" SelectedValue="{Binding CategoryId}" SelectedValuePath="Id"  DisplayMemberPath="CategoryName" ItemsSource="{Binding Categories}"/>
+
+
+                <TextBlock Text="Количество на складе"/>
+                <TextBox Name="txtCount" Text="{Binding Count}"/>
+
+                <TextBlock Text="Цена"/>
+                <TextBox Name="txtCost" Text="{Binding Cost}"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel>
+                        <Image x:Name="img" Width="100" Height="100" Margin="9,5,11,5" Source="{Binding ImagePath}"/>
+                        <Button x:Name="ButtonEnterImage" Content="выбрать фото" Click="ButtonEnterImage_Click"/>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <TextBlock Text="Описание^"/>
+                        <TextBox Name="txtDescription" Text="{Binding Description}" Width="100" Height="100" TextWrapping="Wrap"/>
+
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel>
+                    <Button x:Name="buttonDeleteProduct" Content="удалить материал" Width="200" Visibility="Visible" Click="buttonDeleteProduct_Click"/>
+                    <Button x:Name="buttonSaveProduct" Content="сохранить" Width="200" Visibility="Visible" Click="buttonSaveProduct_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>
